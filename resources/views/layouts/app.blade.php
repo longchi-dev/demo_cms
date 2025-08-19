@@ -47,24 +47,6 @@
                 'X-CSRF-TOKEN': csrfToken
             }
         });
-
-        // Sau khi cấu hình, bạn có thể sử dụng AJAX như bình thường
-        // $('#submitButton').on('click', function() {
-        //     $.ajax({
-        //         url: '/some-endpoint',
-        //         method: 'POST',
-        //         data: {
-        //             name: 'John Doe',
-        //             email: 'john@example.com',
-        //         },
-        //         success: function(response) {
-        //             console.log('Response:', response);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             console.error('AJAX Error:', error);
-        //         }
-        //     });
-        // });
     });
     </script>
     @stack('js')

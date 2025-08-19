@@ -37,7 +37,7 @@ class ExportController extends BaseController
 
         return $this->sendResponse(
             [
-                'status' => $cacheData
+                $cacheData
             ],
             'Status'
         );

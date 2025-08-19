@@ -10,7 +10,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -29,8 +29,43 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                {{ $slot ?? null }}
+                @yield('content')
             </main>
         </div>
     </body>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+        // Lấy CSRF token từ meta tag
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        
+        // Thiết lập CSRF token cho tất cả các yêu cầu AJAX
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            }
+        });
+
+        // Sau khi cấu hình, bạn có thể sử dụng AJAX như bình thường
+        // $('#submitButton').on('click', function() {
+        //     $.ajax({
+        //         url: '/some-endpoint',
+        //         method: 'POST',
+        //         data: {
+        //             name: 'John Doe',
+        //             email: 'john@example.com',
+        //         },
+        //         success: function(response) {
+        //             console.log('Response:', response);
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.error('AJAX Error:', error);
+        //         }
+        //     });
+        // });
+    });
+    </script>
+    @stack('js')
 </html>

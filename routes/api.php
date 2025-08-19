@@ -8,5 +8,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/export/data', [ExportController::class, 'export']);
-Route::get('/export/data/status', [ExportController::class, 'getStatus']);
+Route::middleware('auth')->group(function () {
+    
+});

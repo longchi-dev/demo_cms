@@ -2,9 +2,9 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    {{-- action="{{ route('login') }}" --}}
-    <form id="login-form" method="POST">
-`        @csrf
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
@@ -44,43 +44,4 @@
             </x-primary-button>
         </div>
     </form>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('token');
-            
-            if (token) {
-                window.location.href = '/dashboard';
-            }
-        });
-
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const token = data.data.token;
-                localStorage.setItem('token', token);
-                
-                window.location.href = '/dashboard'; 
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Invalid credentials');
-            });
-        });
-    </script>
 </x-guest-layout>

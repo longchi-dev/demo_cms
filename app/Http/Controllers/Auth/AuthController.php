@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\Auth\AuthService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends BaseController
 {
@@ -37,5 +38,16 @@ class AuthController extends BaseController
             $data,
             'Login successful'
         );
+    }
+
+    public function logout(Request $request): JsonResponse
+    {
+        $user = $request->user();
+        
+        if ($user) {
+            $user->tokens()->delete();
+        }
+
+        return $this->sendResponse([], 'Logout successful');
     }
 }

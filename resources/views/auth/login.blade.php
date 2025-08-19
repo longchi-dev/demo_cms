@@ -46,8 +46,15 @@
     </form>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const token = localStorage.getItem('token');
+            
+            if (token) {
+                window.location.href = '/dashboard';
+            }
+        });
+
         document.getElementById('login-form').addEventListener('submit', function(e) {
-            console.log('123');
             e.preventDefault();
             
             const email = document.getElementById('email').value;
@@ -65,12 +72,9 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Login successful:', data);
                 const token = data.data.token;
                 localStorage.setItem('token', token);
-
-                console.log('token: ', token);
-
+                
                 window.location.href = '/dashboard'; 
             })
             .catch(error => {

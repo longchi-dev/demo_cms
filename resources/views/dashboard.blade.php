@@ -32,9 +32,7 @@
             $.ajax({
                 url: '/export/data',
                 method: 'POST',
-                data: {
-                        
-                },
+                data: {},
                 success: function(response) {
                     console.log('Export bắt đầu:', response);
                     $('#export-status').text('Đang xuất dữ liệu...');

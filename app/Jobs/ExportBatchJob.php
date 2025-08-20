@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
 class ExportBatchJob implements ShouldQueue
 {
@@ -27,6 +28,8 @@ class ExportBatchJob implements ShouldQueue
 
     public function handle(): void
     {
+        
+        Log::info("Đang export {$this->uuid}");
         // sleep(100);
 
         $data = app(ExportRepository::class)->getDataWithOffsetAndLimit(

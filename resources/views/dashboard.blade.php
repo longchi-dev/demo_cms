@@ -18,7 +18,7 @@
     </div>
 
     <div class="mt-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <button id="export-button" type="button" class="bg-grey-500 text-white px-4 py-2 rounded-lg">
+        <button id="export-button" type="button" class="bg-green-500 text-white px-4 py-2 rounded-lg">
             Export Data
         </button>
         <p id="export-status" class="mt-2 text-sm text-gray-600 dark:text-gray-300"></p>
@@ -38,14 +38,17 @@
                 success: function(response) {
                     console.log('Export bắt đầu:', response);
                     $('#export-status').text('Đang xuất dữ liệu...');
+                    
+                    const uuid = response.data.uuid;
 
                     let pollingInterval = setInterval(() => {
                         $.ajax({
                             url: "/export/status",
                             method: 'GET',
+                            data: { uuid: uuid },
                             success: function (statusResponse) {
                                 console.log('Status:', statusResponse);
-                                $('#export-status').text(statusResponse.message);
+                                $('#export-status').text(statusResponse.data[0].status);
 
                                 if (statusResponse.data && statusResponse.data[0]?.status === 'success') {
                                     clearInterval(pollingInterval);

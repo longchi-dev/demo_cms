@@ -27,6 +27,8 @@ class ExportBatchJob implements ShouldQueue
 
     public function handle(): void
     {
+        // sleep(100);
+
         $data = app(ExportRepository::class)->getDataWithOffsetAndLimit(
             $this->offset,
             $this->limit

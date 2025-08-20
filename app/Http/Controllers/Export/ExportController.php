@@ -8,6 +8,7 @@ use App\Services\Export\ExportCache;
 use App\Services\Export\ExportService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ExportController extends BaseController
 {
@@ -16,9 +17,9 @@ class ExportController extends BaseController
         protected ExportCache $exportCache
     ) {}
 
-    public function export(Request $request): JsonResponse
+    public function export(): JsonResponse
     {
-        $uuid = $request->user()->id;
+        $uuid = (string) Str::uuid();
         $this->exportService->exportData($uuid);
 
         return $this->sendResponse(
@@ -31,7 +32,7 @@ class ExportController extends BaseController
 
     public function getStatus(Request $request): JsonResponse
     {
-        $uuid = $request->user()->id;
+        $uuid = $request->query('uuid');
 
         $cacheData = $this->exportCache->getCache($uuid);
 
@@ -39,7 +40,7 @@ class ExportController extends BaseController
             [
                 $cacheData
             ],
-            'Status'
+            'OK'
         );
     }
 }
